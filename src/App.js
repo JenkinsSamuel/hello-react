@@ -1,5 +1,8 @@
 // import logo from './logo.svg';
+
 import './App.css';
+
+import { SupabaseClient } from '@supabase/supabase-js';
 
 const movies = [
   { id: 1, title: 'The Dark Knight', director: 'Christopher Nolan', isAvailable: true },
