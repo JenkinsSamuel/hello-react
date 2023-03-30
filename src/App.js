@@ -3,6 +3,7 @@
 import './App.css';
 
 import { SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
 
 const movies = [
   { id: 1, title: 'The Dark Knight', director: 'Christopher Nolan', isAvailable: true },
@@ -62,6 +63,23 @@ function DillyButton() {
     </>
   );
 }
+
+
+
+
+async function getBooks() {
+  
+
+  let { data: books, error } = await SupabaseClient
+    .from('books')
+    .select('*')
+  
+  for (let book of books) {
+    let bookList = document.getElementById('books');
+    bookList.innerHTML += `<li>${book.title} - ${book.author}</li>`;
+   }
+  }
+  
 function App() {
   return (
     <div className="App">
@@ -69,10 +87,15 @@ function App() {
       < MovieList />
       <Music />
       <DillyButton />
+      <getBooks />
 
       </header>
     </div>
   );
 }
+
+
+
+
 
 export default App;
