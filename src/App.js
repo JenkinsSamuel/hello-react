@@ -1,9 +1,47 @@
-// import logo from './logo.svg';
 
+
+// import logo from './logo.svg';
+import { useState } from 'react';
+import { supabase } from './supabaseClient';
 import './App.css';
 
-import { SupabaseClient } from '@supabase/supabase-js';
-import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
+
+
+// A React component that queries and displays data from Supabase
+function Library() {
+  // The useState hook lets us store data in a component across renders
+  // setMyBooks is a setter function that updates the state of myBooks
+  const [myBooks, setMyBooks] = useState([]);
+  // This should look familar from Codepen
+  async function getBooks() {
+    let { data: books, error } = await supabase
+      .from('books')
+      .select('*')
+    // Update the state
+    setMyBooks(books);
+  }
+  // Execute the function
+  getBooks();
+  // Below is what displays when you use <Library />
+  return (
+    <table>
+    {
+      myBooks.map(b => (
+        <tr>
+          <td>{b.title}</td>
+          <td>{b.author}</td>
+          <td>{b.isbn}</td>
+        </tr>
+      ))
+    }
+    </table>
+  )
+}
+
+
+
+
+
 
 const movies = [
   { id: 1, title: 'The Dark Knight', director: 'Christopher Nolan', isAvailable: true },
@@ -53,42 +91,32 @@ function Music() {
   );
 }
 function DillyButton() {
+  const [count, setCount] = useState(0);
+  function doMagic() {
+    setCount(count + 1); 
+  }
   return (
     <>
       <h3>
         You are a true friend of the crown !
       </h3>
 
-      <button>Dilly Dilly</button>
+      <button onClick={doMagic}>Dilly Dilly {count }</button>
     </>
   );
 }
 
 
 
-
-async function getBooks() {
-  
-
-  let { data: books, error } = await SupabaseClient
-    .from('books')
-    .select('*')
-  
-  for (let book of books) {
-    let bookList = document.getElementById('books');
-    bookList.innerHTML += `<li>${book.title} - ${book.author}</li>`;
-   }
-  }
   
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Library />
       < MovieList />
       <Music />
       <DillyButton />
-      <getBooks />
-
       </header>
     </div>
   );
@@ -99,3 +127,4 @@ function App() {
 
 
 export default App;
+ 

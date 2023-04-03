@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+table, tr, td {
+  background-color: #18453b;
+  color: white;
+  text-align: center;
+  border: 1px solid black;
+  
+}
