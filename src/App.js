@@ -30,6 +30,7 @@ function Library() {
         <tr>
           <td>{b.title}</td>
           <td>{b.author}</td>
+          <td>{b.description}</td>
           <td>{b.isbn}</td>
         </tr>
       ))
